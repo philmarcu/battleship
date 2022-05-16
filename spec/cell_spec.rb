@@ -36,7 +36,13 @@ RSpec.describe Cell do
     cell_2 = Cell.new("C3")
     cruiser = Ship.new("Cruiser", 3)
 
-    xit 'can show the contents in a cell' do
+    it 'can show the contents in a cell' do
+      expect(cell_1.render).to eq(".")
+    end
+
+    xit 'can reveal a ship if its placed' do
+      cell_2.place_ship(cruiser)
+      expect(cell_2.render).to eq("S")
     end
   end
 end

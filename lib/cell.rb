@@ -31,6 +31,17 @@ class Cell
     end
   end
 
-  def render
+  def render(reveal = false)
+    # if @empty == true
+    #   return "."
+    # end
+    # if @empty == false
+    #   return "S"
+    #   default = true
+    # end
+    if @fired_upon == false
+      "."
+    end
+    # require "pry"; binding.pry
   end
 end
