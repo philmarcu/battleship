@@ -17,6 +17,7 @@ RSpec.describe Cell do
     it 'can store a ship in a cell' do
       cell.place_ship(cruiser)
       expect(cell.ship).to eq(cruiser)
+      expect(cell.empty?).to eq(false)
     end
 
     it 'is not fired upon by default' do
@@ -40,6 +41,15 @@ RSpec.describe Cell do
       expect(cell_1.render).to eq(".")
     end
 
+    it 'can be fired upon and reveal a miss or hit' do
+      cell_1.fire_upon
+      cell_2.place_ship(cruiser)
+      cell_2.fire_upon
+
+      expect(cell_1.render).to eq("M")
+      expect(cell_2.render).to eq("H")
+
+    end
     xit 'can reveal a ship if its placed' do
       cell_2.place_ship(cruiser)
       expect(cell_2.render).to eq("S")

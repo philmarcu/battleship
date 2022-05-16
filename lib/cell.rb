@@ -18,6 +18,7 @@ class Cell
 
   def place_ship(ship)
     @ship = ship
+    @empty = false
   end
 
   def fired_upon?
@@ -39,7 +40,11 @@ class Cell
     #   return "S"
     #   default = true
     # end
-    if @fired_upon == false
+    if @fired_upon == true && @empty == false
+      "H"
+    elsif @fired_upon == true && @empty == true
+      "M"
+    elsif @fired_upon == false
       "."
     end
     # require "pry"; binding.pry
