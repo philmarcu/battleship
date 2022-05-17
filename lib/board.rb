@@ -1,6 +1,7 @@
 class Board
 
   attr_reader :cells
+
   def initialize
     @cells = {
             "A1" => Cell.new("A1"),
@@ -20,5 +21,13 @@ class Board
             "D3" => Cell.new("D3"),
             "D4" => Cell.new("D4")
           }
+  end
+
+  def valid_coordinate?(coord) #coord = given coordinate
+    if @cells == coord
+      return true
+    else
+      return false
+    end
   end
 end
