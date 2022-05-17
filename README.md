@@ -141,15 +141,16 @@ pry(main)> cell.fired_upon?
 
 Finally, a Cell will have a method called ```render ```which returns a String representation of the Cell for when we need to print the board. A cell can potentially be rendered as:
 
-```”.”``` if the cell has not been fired upon.
+”.” if the cell has not been fired upon.
 
-```“M”``` if the cell has been fired upon and it does not contain a ship (the shot was a miss).
+“M” if the cell has been fired upon and it does not contain a ship (the shot was a miss).
 
-```“H”``` if the cell has been fired upon and it contains a ship (the shot was a hit).
+“H” if the cell has been fired upon and it contains a ship (the shot was a hit).
 
-```“X”``` if the cell has been fired upon and its ship has been sunk.
+“X” if the cell has been fired upon and its ship has been sunk.
 
 Additionally, we will include an optional boolean argument to indicate if we want to reveal a ship in the cell even if it has not been fired upon. This should render a cell that has not been fired upon and contains a ship as an “S”. This will be useful for showing the user where they placed their ships and for debugging.
+
 
 ``` ruby
 pry(main)> cell_1 = Cell.new("B4")
@@ -455,12 +456,13 @@ pry(main)> board.valid_placement?(submarine, ["A1", "B1"])
 ### Rendering the Board
 Our board needs to be able to render a String representation of itself to display to the user all of its cells in a formatted grid. Each Cell should be displayed using the rules from Iteration 1:
 
-```”.”``` if the cell has not been fired upon.
+”.” if the cell has not been fired upon.
 
-```“M”``` if the cell has been fired upon and it does not contain a ship (the shot was a miss).
+“M” if the cell has been fired upon and it does not contain a ship (the shot was a miss).
 
-```“H”``` if the cell has been fired upon and it contains a ship (the shot was a hit).
-```“X”``` if the cell has been fired upon and its ship has been sunk. Note that all of the cells that contain that sunken ship should render as an “X”, not just the cell that resulted in the ship being sunk.
+“H” if the cell has been fired upon and it contains a ship (the shot was a hit).
+
+“X” if the cell has been fired upon and its ship has been sunk. Note that all of the cells that contain that sunken ship should render as an “X”, not just the cell that resulted in the ship being sunk.
 
 And just like with cells, we will include an optional argument to indicate whether we want to show hidden ships.
 
