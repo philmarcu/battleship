@@ -12,5 +12,6 @@ RSpec.describe Board do
     expect(board.cells).to be_a(Hash)
     expect(board.cells.size).to eq(16)
     expect(board.cells.keys[0]).to eq("A1")
+    expect(board.cells.keys[15]).to eq("D4")
   end
 end
