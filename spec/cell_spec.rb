@@ -69,7 +69,7 @@ RSpec.describe Cell do
     end
   end
 
-  describe '#condition for dead ship' do
+  describe 'condition for dead ship' do
     cell_2 = Cell.new("C3")
     cruiser = Ship.new("Cruiser", 3)
 
