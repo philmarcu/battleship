@@ -39,7 +39,4 @@ class Cell
       "."
     end
   end
-
-  # Refactor notes for render -- can change all @empty to empty? or !empty?
-  # line 43 "X" & "H" == !empty?, line 47 & line 49 == empty?
 end
