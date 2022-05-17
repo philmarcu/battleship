@@ -24,11 +24,6 @@ class Board
   end
 
   def valid_coordinate?(coord) #coord = given coordinate
-    if @cells.any?(coord)
-      return true
-    else
-      return false
-    end
-
+  @cells.any? {|cell| cell.include?(coord)}
   end
 end
