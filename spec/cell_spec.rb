@@ -4,7 +4,7 @@ require './lib/cell'
 RSpec.describe Cell do
   cell = Cell.new("B4")
 
-  it 'exists & has attributes' do
+  it 'exists & has attributes' do ##
     expect(cell).to be_a(Cell)
     expect(cell.coordinate).to eq("B4")
     expect(cell.ship).to eq(nil)
@@ -14,7 +14,7 @@ RSpec.describe Cell do
   describe 'ship placement & cell fired upon' do
     cruiser = Ship.new("Cruiser", 3)
 
-    it 'can place a ship into a cell' do
+    it 'can place a ship into a cell' do ##
       cell.place_ship(cruiser)
 
       expect(cell.ship).to eq(cruiser)
@@ -25,7 +25,7 @@ RSpec.describe Cell do
       expect(cell.fired_upon?).to eq(false)
     end
 
-    it 'can fire upon a ship' do
+    it 'can fire upon a ship' do ##
       cell.fire_upon
 
       expect(cell.ship.health).to eq(2)
@@ -33,12 +33,12 @@ RSpec.describe Cell do
     end
   end
 
-  describe "#render method" do
+  describe "#render method" do ##
     cell_1 = Cell.new("B4")
     cell_2 = Cell.new("C3")
     cruiser = Ship.new("Cruiser", 3)
 
-    it 'can show the contents in a cell' do
+    it 'can show the contents in a cell' do ##
       expect(cell_1.render).to eq(".")
       expect(cell_2.render).to eq(".")
     end
@@ -84,6 +84,8 @@ RSpec.describe Cell do
       expect(cell_2.render).to eq("X")
     end
   end
+
+
 end
 
 # Need test that shows if ship is near dying, last hit will turn all other H hits into X.
