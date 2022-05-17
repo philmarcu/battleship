@@ -35,13 +35,14 @@ class Cell
   def render(reveal = false)
     if reveal == true && @empty == false && @fired_upon == false
       "S"
-    elsif @fired_upon == false && @empty == true
-      "."
-    elsif @fired_upon == true && @empty == false
+    elsif @fired_upon == true && @empty == false && @ship.sunk?
+      "X"
+    elsif @fired_upon == true && @empty == false && !@ship.sunk?
       "H"
     elsif @fired_upon == true && @empty == true
       "M"
-    # Make elsif for the "X" string
+    elsif @fired_upon == false && @empty == true
+      "."
     end
   end
 end
