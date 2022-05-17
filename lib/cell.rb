@@ -16,6 +16,11 @@ class Cell
     end
   end
 
+    # For empty?-- @ship.nil? <-- also works
+
+    # refactor notes - can get rid of the @empty var & use empty? in
+    # all instances of using @empty
+
   def place_ship(ship)
     @ship = ship
     @empty = false
@@ -45,4 +50,7 @@ class Cell
       "."
     end
   end
+
+  # Refactor notes for render -- can change all @empty to empty? or !empty?
+  # line 43 "X" & "H" == !empty?, line 47 & line 49 == empty?
 end
