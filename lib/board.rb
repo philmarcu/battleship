@@ -24,10 +24,11 @@ class Board
   end
 
   def valid_coordinate?(coord) #coord = given coordinate
-    if @cells == coord
+    if @cells.any?(coord)
       return true
     else
       return false
     end
+
   end
 end
