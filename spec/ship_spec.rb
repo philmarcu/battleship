@@ -14,11 +14,14 @@ RSpec.describe Ship do
   it 'can get hit by a missile' do
     cruiser.hit
     expect(cruiser.health).to eq(2)
+    expect(cruiser.sunk?).to eq(false)
   end
 
   it 'can sink a ship' do
     cruiser.hit
     expect(cruiser.health).to eq(1)
+    expect(cruiser.sunk?).to eq(false)
+
     cruiser.hit
     expect(cruiser.sunk?).to eq(true)
   end
