@@ -33,20 +33,15 @@ class Cell
   end
 
   def render(reveal = false)
-    # if @empty == true
-    #   return "."
-    # end
-    # if @empty == false
-    #   return "S"
-    #   default = true
-    # end
-    if @fired_upon == true && @empty == false
+    if reveal == true && @empty == false && @fired_upon == false
+      "S"
+    elsif @fired_upon == false && @empty == true
+      "."
+    elsif @fired_upon == true && @empty == false
       "H"
     elsif @fired_upon == true && @empty == true
       "M"
-    elsif @fired_upon == false
-      "."
+    # Make elsif for the "X" string
     end
-    # require "pry"; binding.pry
   end
 end

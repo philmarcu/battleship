@@ -14,7 +14,7 @@ RSpec.describe Cell do
   describe 'ship placement & cell fired upon' do
     cruiser = Ship.new("Cruiser", 3)
 
-    it 'can store a ship in a cell' do
+    it 'can place a ship into a cell' do
       cell.place_ship(cruiser)
       expect(cell.ship).to eq(cruiser)
       expect(cell.empty?).to eq(false)
@@ -32,6 +32,7 @@ RSpec.describe Cell do
       expect(cell.fired_upon?).to eq(true)
     end
   end
+
   describe "#render method" do
     cell_1 = Cell.new("B4")
     cell_2 = Cell.new("C3")
@@ -39,6 +40,7 @@ RSpec.describe Cell do
 
     it 'can show the contents in a cell' do
       expect(cell_1.render).to eq(".")
+      expect(cell_2.render).to eq(".")
     end
 
     it 'can be fired upon and reveal a miss or hit' do
@@ -48,11 +50,21 @@ RSpec.describe Cell do
 
       expect(cell_1.render).to eq("M")
       expect(cell_2.render).to eq("H")
-
     end
-    xit 'can reveal a ship if its placed' do
+  end
+
+  describe 'render reveal' do
+    cell_1 = Cell.new("B4")
+    cell_2 = Cell.new("C3")
+    cruiser = Ship.new("Cruiser", 3)
+
+    it 'can reveal a ship if its placed' do
+      expect(cell_1.render).to eq(".")
+      expect(cell_2.render).to eq(".")
+
       cell_2.place_ship(cruiser)
-      expect(cell_2.render).to eq("S")
+
+      expect(cell_2.render(true)).to eq("S")
     end
   end
 end
