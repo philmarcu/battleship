@@ -23,7 +23,7 @@ class Board
           }
   end
 
-  def valid_coordinate?(coord) #coord = given coordinate
-  @cells.any? {|cell| cell.include?(coord)}
+  def valid_coordinate?(coord)
+    @cells.any? {|cell| cell.include?(coord)}
   end
 end
