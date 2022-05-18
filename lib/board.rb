@@ -26,10 +26,16 @@ class Board
     @cells.any? {|cell| cell.include?(coord)}
   end
 
-  def valid_placement?(ship, keys)
-    if ship.length != keys.count
+  def is_occupied?(coord)
+    coord != coord.empty?
+  end
+
+  def valid_placement?(ship, coord)
+    if ship.length != coord.count
       false
     end
-    require "pry"; binding.pry
+    # split by letters + arrays (letters = coordinates.map |letter| letter[0])
+    # can break the valid_placement? test into multiple checks:
+    # vertical, horizontal, and occupied?
   end
 end
