@@ -25,4 +25,11 @@ class Board
   def valid_coordinate?(coord)
     @cells.any? {|cell| cell.include?(coord)}
   end
+
+  def valid_placement?(ship, keys)
+    if ship.length != keys.count
+      false
+    end
+    require "pry"; binding.pry
+  end
 end
