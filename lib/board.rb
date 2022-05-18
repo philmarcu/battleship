@@ -24,6 +24,13 @@ class Board
   end
 
   def valid_coordinate?(coord) #coord = given coordinate
-  @cells.any? {|cell| cell.include?(coord)}
+    @cells.any? {|cell| cell.include?(coord)}
   end
+
+  def valid_placement?(ship_type, coord_array) #coord_array being the array of requested board placement
+    if @cells.valid_coordinate(coord_array) #checks if each cell requested for placement is a valid coordinate, if so then continue (true) - maybe I need to split array with an iterator to send in individually? perhaps with size determined by ship length before the if?
+
+    end
+  end
+
 end
