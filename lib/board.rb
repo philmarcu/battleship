@@ -27,10 +27,34 @@ class Board
     @cells.any? {|cell| cell.include?(coord)}
   end
 
+  # def is_consecutive?(coord_array) #made this extra method so valid placement doesn't get too clustered?
+  #   #meant to test the edge cases to make sure it is not diagonal
+  #
+  # end
+
   def valid_placement?(ship_type, coord_array) #coord_array being the array of requested board placement
-    if @cells.valid_coordinate(coord_array) #checks if each cell requested for placement is a valid coordinate, if so then continue (true) - maybe I need to split array with an iterator to send in individually? perhaps with size determined by ship length before the if?
+    i = 0
+    fail = false #one way to test before proceeding
+    while i < coord_array.length() #will be 2 or 3 depending on ship
+      if @cells.valid_coordinate?(coord_array[i]) #checks if each cell requested for placement is a valid coordinate, if so then continue (true) - maybe I need to split array with an iterator to send in individually? perhaps with size determined by ship length before the if?
+        fail = false #just wanted to return something, a bit redundant
+      else #else, if it is NOT a valid coordinate
+        fail = true  #then it did fail
+      end #end of if/else
+      i += 1 #iterating to check each spot requested
 
-    end
-  end
+    end #(end of while - not sure why white/throwing errors?)
 
-end
+   if !fail  #if it does not fail
+     if is_consecutive?(coord_array) #checks edge cases if it is consecutive
+       return true
+     end #end of if
+
+   else
+     return fail
+
+   end #end of if/else
+
+  end #end of def
+
+end #end of class
