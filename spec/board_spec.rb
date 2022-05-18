@@ -17,7 +17,7 @@ RSpec.describe Board do
 
   it 'will tell us T/F if coordinate exists' do
     expect(board.valid_coordinate?("A4")).to eq(true)
-end
+  end
 
 
 end
