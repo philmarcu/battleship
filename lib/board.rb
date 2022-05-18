@@ -26,8 +26,8 @@ class Board
     @cells.any? {|cell| cell.include?(coord)}
   end
 
-  def is_occupied?(coord)
-    coord != coord.empty?
+  def is_occupied?(coordinates)
+    coordinates.one? {|coord| !@cells[coord].empty?}
   end
 
   def valid_placement?(ship, coord)

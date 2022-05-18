@@ -33,6 +33,8 @@ RSpec.describe Board do
     expect(board.is_occupied?(["A1"])).to eq(true)
     expect(board.is_occupied?(["A2"])).to eq(true)
     expect(board.is_occupied?(["A3"])).to eq(true)
+    expect(board.is_occupied?(["A4"])).to eq(false)
+    expect(board.is_occupied?(["B1"])).to eq(false)
   end
 
   it 'can tell if place is #valid_placement? in length' do
