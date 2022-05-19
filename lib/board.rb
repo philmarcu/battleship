@@ -42,4 +42,14 @@ class Board
 
     pass_test
   end
+
+  def is_occupied?(coordinates)
+    coordinates.one? {|coord| !@cells[coord].empty?}
+  end
+
+  def horizontal_check(coordinates)
+    nums = coordinates.map {|coord| coord.slice(1).to_i}
+    letters = coordinates.map  {|coord| coord.slice(0)}
+    (letters.uniq.count == 1 && (nums.min..nums.max).to_a == nums)
+  end
 end
