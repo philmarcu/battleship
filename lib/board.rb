@@ -31,17 +31,8 @@ class Board
   end
 
   def horizontal_check(coordinates)
-    nums = coordinates.map {|coord| coord.slice(1..2).to_i}
+    nums = coordinates.map {|coord| coord.slice(1).to_i}
     letters = coordinates.map  {|coord| coord.slice(0)}
     (letters.uniq.count == 1 && (nums.min..nums.max).to_a == nums)
-  end
-
-  def valid_placement?(ship, coord)
-    if ship.length != coord.count
-      false
-    end
-    # split by letters + arrays (letters = coordinates.map |letter| letter[0])
-    # can break the valid_placement? test into multiple checks:
-    # vertical, horizontal, and occupied?
   end
 end
