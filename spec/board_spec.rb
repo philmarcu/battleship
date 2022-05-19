@@ -46,7 +46,16 @@ RSpec.describe Board do
       expect(@board.is_occupied?(["D2"])).to eq(false)
     end
   end
-  
+
+
+  it 'will tell us if consecutive' do
+  expect(board.is_consecutive?([1, 2, 3])).to eq(true)
+  expect(board.is_consecutive?([4, 4])).to eq(false)
+  expect(board.is_consecutive?([2, 3, 4])).to eq(true)
+  expect(board.is_consecutive?([3, 4])).to eq(true)
+  expect(board.is_consecutive?([3, 2, 1])).to eq(false)
+end
+ 
   describe " horizontal check & valid placement" do
     before do
       @board = Board.new
@@ -57,12 +66,5 @@ RSpec.describe Board do
     it ' can make a #horizontal_check' do
       expect(@board.horizontal_check(["A1", "A2", "A3"])).to eq(true)
     end
-
   end
-
-  it 'will tell us T/F if coordinate exists' do
-    expect(board.valid_coordinate?("A4")).to eq(true)
-  end
-
-
 end
