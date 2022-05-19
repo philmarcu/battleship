@@ -21,4 +21,25 @@ class Board
             "D4" => Cell.new("D4")
           }
   end
+
+  def valid_coordinate?(coord)
+    @cells.any? {|cell| cell.include?(coord)}
+  end
+
+  def is_consecutive?(coord_array)
+    length = coord_array.length
+    pass_test = false
+
+    i = 0
+    while i < length - 1
+      if coord_array[i + 1] == coord_array[i].to_i + 1
+        pass_test = true
+      else
+        pass_test = false
+      end
+      i += 1
+    end
+
+    pass_test
+  end
 end

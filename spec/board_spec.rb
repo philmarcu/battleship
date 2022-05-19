@@ -14,4 +14,12 @@ RSpec.describe Board do
     expect(board.cells.keys[0]).to eq("A1")
     expect(board.cells.keys[15]).to eq("D4")
   end
+
+  it 'will tell us if consecutive' do
+  expect(board.is_consecutive?([1, 2, 3])).to eq(true)
+  expect(board.is_consecutive?([4, 4])).to eq(false)
+  expect(board.is_consecutive?([2, 3, 4])).to eq(true)
+  expect(board.is_consecutive?([3, 4])).to eq(true)
+  expect(board.is_consecutive?([3, 2, 1])).to eq(false)
+end
 end
