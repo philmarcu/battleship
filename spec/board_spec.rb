@@ -46,8 +46,22 @@ RSpec.describe Board do
       expect(@board.is_occupied?(["D2"])).to eq(false)
     end
   end
-  
-  describe " horizontal check & valid placement" do
+
+  describe 'vertical check placement' do
+    before do
+      @board = Board.new
+      @cruiser = Ship.new("Cruiser", 3)
+    end
+
+    xit 'can make a #vertical_check' do
+      @board.cells.values[0].place_ship(@cruiser)
+      @board.cells.values[4].place_ship(@cruiser)
+      @board.cells.values[8].place_ship(@cruiser)
+      expect(@board.vertical_check(["A1", "B1", "C1"])).to eq(true)
+    end
+  end
+
+  describe " horizontal check" do
     before do
       @board = Board.new
       @cruiser = Ship.new("Cruiser", 3)
@@ -56,6 +70,34 @@ RSpec.describe Board do
 
     it ' can make a #horizontal_check' do
       expect(@board.horizontal_check(["A1", "A2", "A3"])).to eq(true)
+    end
+  end
+
+  describe '#valid_placement' do
+    before do
+      @board = Board.new
+      @cruiser = Ship.new("Cruiser", 3)
+      @submarine = Ship.new("Submarine", 2)
+    end
+
+    it 'can tell if place is #valid_placement? in length' do
+      @board.cells.values[0].place_ship(@cruiser)
+      @board.cells.values[1].place_ship(@cruiser)
+      expect(@board.valid_placement?(@cruiser, ["A1", "A2"])).to eq(false)
+    end
+
+    it 'can tell if place is valid depending on new ship`s length' do
+      @board.cells.values[1].place_ship(@submarine)
+      @board.cells.values[2].place_ship(@submarine)
+      @board.cells.values[3].place_ship(@submarine)
+      expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to eq(false)
+    end
+
+    xit 'can tell if a place is #valid_placement? consecutively' do
+      expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to eq(false)
+      expect(@board.valid_placement?(@submarine, ["A1", "C1"])).to eq(false)
+      expect(@board.valid_placement?(@cruiser, ["A3", "A2", "A1"])).to eq(false)
+      expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to eq(false)
     end
   end
 end
