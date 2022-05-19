@@ -30,6 +30,12 @@ class Board
     coordinates.one? {|coord| !@cells[coord].empty?}
   end
 
+  def horizontal_check(coordinates)
+    nums = coordinates.map {|coord| coord.slice(1..2).to_i}
+    letters = coordinates.map  {|coord| coord.slice(0)}
+    (letters.uniq.count == 1 && (nums.min..nums.max).to_a == nums)
+  end
+
   def valid_placement?(ship, coord)
     if ship.length != coord.count
       false
