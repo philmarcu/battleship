@@ -57,5 +57,12 @@ RSpec.describe Board do
     it ' can make a #horizontal_check' do
       expect(@board.horizontal_check(["A1", "A2", "A3"])).to eq(true)
     end
+
   end
+
+  it 'will tell us T/F if coordinate exists' do
+    expect(board.valid_coordinate?("A4")).to eq(true)
+  end
+
+
 end

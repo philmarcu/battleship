@@ -35,4 +35,5 @@ class Board
     letters = coordinates.map  {|coord| coord.slice(0)}
     (letters.uniq.count == 1 && (nums.min..nums.max).to_a == nums)
   end
+
 end
