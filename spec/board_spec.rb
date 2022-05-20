@@ -118,6 +118,16 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@submarine, ["A2", "A3", "A4"])).to eq(false)
     end
 
+    it 'can tell if #valid_placement is false if occupied' do
+      @board.cells.values[0].place_ship(@submarine)
+      @board.cells.values[1].place_ship(@submarine)
+      @board.cells.values[1].place_ship(@cruiser)
+      expect(@board.valid_placement?(@cruiser, ["A2"])).to eq(false)
+    end
+
+    it 'tells us if #valid_placement is true with horizontal_check' do
+    end
+
     xit 'can tell if a place is #valid_placement? consecutively' do
       expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to eq(false)
       expect(@board.valid_placement?(@submarine, ["A1", "C1"])).to eq(false)

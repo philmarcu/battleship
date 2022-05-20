@@ -64,8 +64,15 @@ class Board
   end
 
   def valid_placement?(ship, coord)
+    nums = coord.map {|coord| coord.slice(1).to_i}
     if ship.length != coord.count
       false
+    elsif is_occupied?(coord) == true
+      false
+    elsif horizontal_check(coord) == true && is_consecutive?(coord) == nums
+      true
+    elsif vertical_check(coord) == true
+      true
     end
   end
 end
