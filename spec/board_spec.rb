@@ -86,7 +86,7 @@ RSpec.describe Board do
       @board.cells.values[0].place_ship(@cruiser)
       @board.cells.values[5].place_ship(@cruiser)
       @board.cells.values[10].place_ship(@cruiser)
-      expect(@board.diagonal_check(["A1", "B2", "C3"])).to eq(false)
+      expect(@board.diagonal_check(["A1", "B2", "C3"])).to eq(true)
     end
   end
 

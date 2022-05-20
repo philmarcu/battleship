@@ -42,6 +42,12 @@ class Board
     (letters.min..letters.max).to_a == letters && nums.uniq.count == 1
   end
 
+  def diagonal_check(coordinates)
+    nums = coordinates.map {|coord| coord.slice(1).to_i}
+    letters = coordinates.map  {|coord| coord.slice(0)}
+    (letters.min..letters.max).to_a == letters && (nums.min..nums.max).to_a == nums
+  end
+
   def valid_placement?(ship, coord)
     if ship.length != coord.count
       false
