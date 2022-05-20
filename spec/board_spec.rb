@@ -47,7 +47,7 @@ RSpec.describe Board do
     end
   end
 
-  describe 'vertical check placement' do
+  describe 'vertical check' do
     before do
       @board = Board.new
       @cruiser = Ship.new("Cruiser", 3)
@@ -68,11 +68,24 @@ RSpec.describe Board do
       @submarine = Ship.new("Submarine", 2)
     end
 
-    it ' can make a #horizontal_check' do
+    it 'can make a #horizontal_check' do
       @board.cells.values[0].place_ship(@cruiser)
       @board.cells.values[1].place_ship(@cruiser)
       @board.cells.values[2].place_ship(@cruiser)
       expect(@board.horizontal_check(["A1", "A2", "A3"])).to eq(true)
+    end
+  end
+
+  describe 'diagonal check' do
+    before do
+      @board = Board.new
+      @cruiser = Ship.new("Cruiser", 3)
+    end
+
+    it 'can make a #diagonal_check' do
+      @board.cells.values[0].place_ship(@cruiser)
+      @board.cells.values[5].place_ship(@cruiser)
+      @board.cells.values[9].place_ship(@cruiser)
     end
   end
 
