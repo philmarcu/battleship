@@ -45,6 +45,14 @@ RSpec.describe Board do
       expect(@board.is_occupied?(["B1"])).to eq(false)
       expect(@board.is_occupied?(["D2"])).to eq(false)
     end
+
+    it 'will tell us if consecutive' do
+      expect(@board.is_consecutive?([1, 2, 3])).to eq(true)
+      expect(@board.is_consecutive?([4, 4])).to eq(false)
+      expect(@board.is_consecutive?([2, 3, 4])).to eq(true)
+      expect(@board.is_consecutive?([3, 4])).to eq(true)
+      expect(@board.is_consecutive?([3, 2, 1])).to eq(false)
+    end
   end
 
   describe 'vertical check' do
