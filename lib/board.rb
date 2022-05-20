@@ -36,23 +36,15 @@ class Board
     (letters.uniq.count == 1 && (nums.min..nums.max).to_a == nums)
   end
 
-  # if position 1 doesn't == position 0 +1 then fail
-
-
   def vertical_check(coordinates)
     nums = coordinates.map {|coord| coord.slice(1).to_i}
     letters = coordinates.map  {|coord| coord.slice(0)}
-    letter_ords = letters.map {|letter| letter.ord}
-    # require "pry"; binding.pry
-    (nums / nums == 1  && letter_ords)
+    (letters.min..letters.max).to_a == letters && nums.uniq.count == 1
   end
 
   def valid_placement?(ship, coord)
     if ship.length != coord.count
       false
     end
-    # split by letters + arrays (letters = coordinates.map |letter| letter[0])
-    # can break the valid_placement? test into multiple checks:
-    # vertical, horizontal, and occupied?
   end
 end

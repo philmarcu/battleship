@@ -18,7 +18,7 @@ RSpec.describe Board do
     expect(@board.cells.values[5]).to be_a(Cell)
   end
 
-  describe '@board occupied & valid coordinate tests' do
+  describe 'occupied & valid coordinate tests' do
     before do
       @board = Board.new
       @cruiser = Ship.new("Cruiser", 3)
@@ -53,7 +53,7 @@ RSpec.describe Board do
       @cruiser = Ship.new("Cruiser", 3)
     end
 
-    xit 'can make a #vertical_check' do
+    it 'can make a #vertical_check' do
       @board.cells.values[0].place_ship(@cruiser)
       @board.cells.values[4].place_ship(@cruiser)
       @board.cells.values[8].place_ship(@cruiser)
@@ -69,6 +69,9 @@ RSpec.describe Board do
     end
 
     it ' can make a #horizontal_check' do
+      @board.cells.values[0].place_ship(@cruiser)
+      @board.cells.values[1].place_ship(@cruiser)
+      @board.cells.values[2].place_ship(@cruiser)
       expect(@board.horizontal_check(["A1", "A2", "A3"])).to eq(true)
     end
   end
