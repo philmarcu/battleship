@@ -66,6 +66,7 @@ RSpec.describe Board do
       @board.cells.values[4].place_ship(@cruiser)
       @board.cells.values[8].place_ship(@cruiser)
       expect(@board.vertical_check(["A1", "B1", "C1"])).to eq(true)
+      expect(@board.vertical_check(["A1", "B2", "C1"])).to eq(false)
     end
   end
 
@@ -81,6 +82,7 @@ RSpec.describe Board do
       @board.cells.values[1].place_ship(@cruiser)
       @board.cells.values[2].place_ship(@cruiser)
       expect(@board.horizontal_check(["A1", "A2", "A3"])).to eq(true)
+      expect(@board.horizontal_check(["A1", "A2", "A4"])).to eq(false)
     end
   end
 
@@ -95,10 +97,11 @@ RSpec.describe Board do
       @board.cells.values[5].place_ship(@cruiser)
       @board.cells.values[10].place_ship(@cruiser)
       expect(@board.diagonal_check(["A1", "B2", "C3"])).to eq(true)
+      expect(@board.diagonal_check(["A2", "B3", "C5"])).to eq(false)
     end
   end
 
-  describe '#valid_placement' do
+  describe '#valid_placement length & occupied' do
     before do
       @board = Board.new
       @cruiser = Ship.new("Cruiser", 3)
@@ -124,15 +127,33 @@ RSpec.describe Board do
       @board.cells.values[1].place_ship(@cruiser)
       expect(@board.valid_placement?(@cruiser, ["A2"])).to eq(false)
     end
+  end
 
-    it 'tells us if #valid_placement is true with horizontal_check' do
+  describe '#valid_placement horizontal & vert' do
+    it 'tells us if #valid_placement is true with #horizontal_check' do
+      @board.cells.values[0].place_ship(@cruiser)
+      @board.cells.values[1].place_ship(@cruiser)
+      @board.cells.values[2].place_ship(@cruiser)
+      expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A3"])).to eq(true)
     end
 
-    xit 'can tell if a place is #valid_placement? consecutively' do
+    it 'tells us if #valid_placement is true with #vertical_check' do
+      @board.cells.values[0].place_ship(@cruiser)
+      @board.cells.values[4].place_ship(@cruiser)
+      @board.cells.values[8].place_ship(@cruiser)
+
+      expect(@board.valid_placement?(@cruiser, ["A1", "B1", "C1"])).to eq(true)
+    end
+  end
+
+  describe "#valid_placement"
+
+  describe '#valid_placement #is_consecutive?' do
+    it 'can tell if a place is #valid_placement? consecutively' do
+      @board.cells.values[0].place_ship(@cruiser)
+      @board.cells.values[1].place_ship(@cruiser)
+      @board.cells.values[3].place_ship(@cruiser)
       expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to eq(false)
-      expect(@board.valid_placement?(@submarine, ["A1", "C1"])).to eq(false)
-      expect(@board.valid_placement?(@cruiser, ["A3", "A2", "A1"])).to eq(false)
-      expect(@board.valid_placement?(@submarine, ["C1", "B1"])).to eq(false)
     end
   end
 end
