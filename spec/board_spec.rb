@@ -171,18 +171,32 @@ RSpec.describe Board do
       @board = Board.new
       @cruiser = Ship.new("Cruiser", 3)
       @submarine = Ship.new("Submarine", 2)
-      @board.cells.values[0].place_ship(@cruiser)
-      @board.cells.values[1].place_ship(@cruiser)
-      @board.cells.values[2].place_ship(@cruiser)
       @cell_1 = @board.cells["A1"]
       @cell_2 = @board.cells["A2"]
       @cell_3 = @board.cells["A3"]
+      @cell_4 = @board.cells["B2"]
+      @cell_5 = @board.cells["B3"]
     end
     it 'will place' do
       @board.place(@cruiser, ["A1", "A2", "A3"])
+      @board.place(@submarine, ["B2", "B3"])
       expect(@cell_1.ship).to eq(@cruiser)
       expect(@cell_2.ship).to eq(@cruiser)
       expect(@cell_3.ship).to eq(@cruiser)
+      expect(@cell_4.ship).to eq(@submarine)
+      expect(@cell_5.ship).to eq(@submarine)
+
     end
+  end
+
+  describe 'does not overlap' do
+    @board = Board.new
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
+  end
+  it 'will return false when attempted overlap' do
+    @board.place(@cruiser, ["A1", "A2", "A3"])
+    @board.place(@submarine, ["A1", "B1"])
+    expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
   end
 end
