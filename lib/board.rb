@@ -101,12 +101,14 @@ class Board
     valid = valid_placement?(ship_type, placement_array)
     if valid
       i = 0
-      while i < placement_array.length
-        placement_array[i] = Cell.new(placement_array[i])
-        i += 1
+      @cells.each do |cell|
+        if cell.last.coordinate == placement_array[i]
+          @cells[placement_array[i]].place_ship(ship_type)
+          i += 1
+        end
       end
-    else
-      puts "Not a valid placement"
     end
   end
+
+
 end
