@@ -52,4 +52,21 @@ class Board
     letters = coordinates.map  {|coord| coord.slice(0)}
     (letters.uniq.count == 1 && (nums.min..nums.max).to_a == nums)
   end
+
+  def place(ship_type, placement_array) #to place the ship, inporting ship_type and the requested coordinates
+
+    #do we need to initialize a new ship here?
+    new_ship = Ship.new(ship_type, placement_array.length)
+
+    #Test first and then if valid:
+    valid = true #replace true with valid_placement? once done
+    if valid
+      #takes each cell and sets to SHIP
+      i = 0
+      while i < placement_array.length
+        placement_array[i] = Cell.new
+        i += 1
+      end
+    end
+  end
 end

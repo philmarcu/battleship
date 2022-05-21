@@ -49,13 +49,13 @@ RSpec.describe Board do
 
 
   it 'will tell us if consecutive' do
-  expect(board.is_consecutive?([1, 2, 3])).to eq(true)
-  expect(board.is_consecutive?([4, 4])).to eq(false)
-  expect(board.is_consecutive?([2, 3, 4])).to eq(true)
-  expect(board.is_consecutive?([3, 4])).to eq(true)
-  expect(board.is_consecutive?([3, 2, 1])).to eq(false)
-end
- 
+    expect(board.is_consecutive?([1, 2, 3])).to eq(true)
+    expect(board.is_consecutive?([4, 4])).to eq(false)
+    expect(board.is_consecutive?([2, 3, 4])).to eq(true)
+    expect(board.is_consecutive?([3, 4])).to eq(true)
+    expect(board.is_consecutive?([3, 2, 1])).to eq(false)
+  end
+
   describe " horizontal check & valid placement" do
     before do
       @board = Board.new
@@ -65,6 +65,25 @@ end
 
     it ' can make a #horizontal_check' do
       expect(@board.horizontal_check(["A1", "A2", "A3"])).to eq(true)
+    end
+  end
+
+  describe 'able to #place' do
+    before do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+    end
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    cell_1 = board.cells["A1"]
+    cell_2 = board.cells["A2"]
+    cell_3 = board.cells["A3"]
+
+    it '' do
+      #
+      # expect(cruiser.sunk?).to eq(true)
+      # expect(cell_2.render).to eq("X")
     end
   end
 end
