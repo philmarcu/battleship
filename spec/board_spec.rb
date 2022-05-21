@@ -165,4 +165,21 @@ RSpec.describe Board do
       expect(@board.valid_placement?(@cruiser, ["A1", "A2", "A4"])).to eq(false)
     end
   end
+
+  describe 'able to #place' do
+    before do
+      board = Board.new
+      cruiser = Ship.new("Cruiser", 3)
+      submarine = Ship.new("Submarine", 2)
+    end
+
+    board.place(cruiser, ["A1", "A2", "A3"])
+    cell_1 = board.cells["A1"]
+    cell_2 = board.cells["A2"]
+    cell_3 = board.cells["A3"]
+
+    it '' do
+      # need to finish writing test
+    end
+  end
 end

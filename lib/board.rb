@@ -67,7 +67,7 @@ class Board
     letters = coordinates.map  {|coord| coord.slice(0)}
     (letters.uniq.count == 1 && (nums.min..nums.max).to_a == nums)
   end
-
+  
   def vertical_check(coordinates)
     nums = coordinates.map {|coord| coord.slice(1).to_i}
     letters = coordinates.map  {|coord| coord.slice(0)}
@@ -96,4 +96,19 @@ class Board
     end
     pass
   end
+  
+  def place(ship_type, placement_array) 
+
+  new_ship = Ship.new(ship_type, placement_array.length)
+
+  #Test first and then if valid:
+  valid = true
+  if valid
+    i = 0
+    while i < placement_array.length
+      placement_array[i] = Cell.new
+      i += 1
+    end
+  end #not complete
+    
 end
