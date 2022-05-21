@@ -88,11 +88,4 @@ RSpec.describe Cell do
       expect(cell_2.render).to eq("X")
     end
   end
-
-
 end
-
-# Need test that shows if ship is near dying, last hit will turn all other H hits into X.
-# If ship.health == 1 & fired_upon == true, return "X"
-# If ship.sunk == true, change all "H" strings to "X"
-# Will probably need test to assure you can't hit the same cell twice

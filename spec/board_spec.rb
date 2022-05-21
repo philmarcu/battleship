@@ -199,4 +199,21 @@ RSpec.describe Board do
     @board.place(@submarine, ["A1", "B1"])
     expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
   end
+
+  describe 'render method' do
+    before do
+      @board = Board.new
+      @cruiser = Ship.new("Cruiser", 3)
+    end
+
+    it 'renders the board depending on conditions' do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+
+      expected = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      reveal = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+
+      expect(@board.render).to eq(expected)
+      expect(@board.render(true)).to eq(reveal)
+    end
+  end
 end
