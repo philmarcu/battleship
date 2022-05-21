@@ -30,7 +30,7 @@ class Cell
   def render(reveal = false)
     if reveal == true && !empty? && @fired_upon == false
       "S"
-    elsif reveal == false && !empty? && @fired_upon == false
+    elsif !empty? && @fired_upon == false
       "."
     elsif @fired_upon == true && !empty? && @ship.sunk?
       "X"

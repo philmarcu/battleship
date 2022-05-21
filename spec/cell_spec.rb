@@ -67,6 +67,7 @@ RSpec.describe Cell do
       cell_2.place_ship(cruiser)
       cell_3.place_ship(cruiser)
 
+      expect(cell_1.render(true)).to eq(".")
       expect(cell_2.render(true)).to eq("S")
       expect(cell_3.render).to eq(".")
     end
