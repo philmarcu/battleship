@@ -47,9 +47,53 @@ class Board
     coordinates.one? {|coord| !@cells[coord].empty?}
   end
 
+  def is_consecutive?(coord_array)
+    length = coord_array.length
+    pass_test = false
+    i = 0
+    while i < length - 1
+      if coord_array[i + 1] == coord_array[i].to_i + 1
+        pass_test = true
+      else
+        pass_test = false
+      end
+      i += 1
+    end
+    pass_test
+  end
+
   def horizontal_check(coordinates)
     nums = coordinates.map {|coord| coord.slice(1).to_i}
     letters = coordinates.map  {|coord| coord.slice(0)}
     (letters.uniq.count == 1 && (nums.min..nums.max).to_a == nums)
+  end
+
+  def vertical_check(coordinates)
+    nums = coordinates.map {|coord| coord.slice(1).to_i}
+    letters = coordinates.map  {|coord| coord.slice(0)}
+    (letters.min..letters.max).to_a == letters && nums.uniq.count == 1
+  end
+
+  def diagonal_check(coordinates)
+    nums = coordinates.map {|coord| coord.slice(1).to_i}
+    letters = coordinates.map  {|coord| coord.slice(0)}
+    (letters.min..letters.max).to_a == letters && (nums.min..nums.max).to_a == nums
+  end
+
+  def valid_placement?(ship, coord)
+    nums = coord.map {|coord| coord.slice(1).to_i}
+    pass = false
+    if ship.length != coord.count
+      pass = false
+    elsif is_occupied?(coord) == true
+      pass = false
+    elsif horizontal_check(coord) == true && is_consecutive?(nums)
+      pass = true
+    elsif vertical_check(coord) == true
+      pass = true
+    elsif diagonal_check(coord) == true
+      pass = false
+    end
+    pass
   end
 end
