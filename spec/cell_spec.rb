@@ -57,6 +57,7 @@ RSpec.describe Cell do
   describe 'render reveal' do
     cell_1 = Cell.new("B4")
     cell_2 = Cell.new("C3")
+    cell_3 = Cell.new("D3")
     cruiser = Ship.new("Cruiser", 3)
 
     it 'can reveal a ship if its placed' do
@@ -64,8 +65,11 @@ RSpec.describe Cell do
       expect(cell_2.render).to eq(".")
 
       cell_2.place_ship(cruiser)
+      cell_3.place_ship(cruiser)
 
+      expect(cell_1.render(true)).to eq(".")
       expect(cell_2.render(true)).to eq("S")
+      expect(cell_3.render).to eq(".")
     end
   end
 
@@ -84,11 +88,4 @@ RSpec.describe Cell do
       expect(cell_2.render).to eq("X")
     end
   end
-
-
 end
-
-# Need test that shows if ship is near dying, last hit will turn all other H hits into X.
-# If ship.health == 1 & fired_upon == true, return "X"
-# If ship.sunk == true, change all "H" strings to "X"
-# Will probably need test to assure you can't hit the same cell twice

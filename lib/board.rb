@@ -110,5 +110,31 @@ class Board
     end
   end
 
+  def render(reveal = false)
+    display = ""
+    letters = ""
+    nums = ""
+    @cells.each do |cell|
+      letters << cell.last.coordinate.slice(0)
+      nums << cell.last.coordinate.slice(1)
+    end
+    i = 0
+    @cells.each do |cell|
+      require "pry"; binding.pry
+      i += 1
+    end
+    # 1 iterator that prints out letters - "A - D"
 
+    # 2nd iterator that prints out the cell & its coordinates - "A1, A2, A3, A4"
+
+    # Iterator 1- we keep the letters["A"] and then print them after every called newline
+
+    #Newline we run the nums cells print the num string and then connect it to the cells coordinate
+
+    # if reveal == true
+    #   render = @cells.map {|cell| cell.last.render(true)}
+    # else
+    #   render = @cells.map {|cell| cell.last.render}
+    # end
+  end
 end
