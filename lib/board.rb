@@ -111,18 +111,53 @@ class Board
   end
 
   def render(reveal = false)
-    display = ""
-    letters = ""
-    nums = ""
+    puts " 1 2 3 4"
+    letters = []
+    nums = []
     @cells.each do |cell|
       letters << cell.last.coordinate.slice(0)
       nums << cell.last.coordinate.slice(1)
     end
+
     i = 0
-    @cells.each do |cell|
-      require "pry"; binding.pry
-      i += 1
+    4.times do #@cells.length #or cells.length
+      # num % i == 0
+      place0 = @cells["#{letters[i]}1"]
+      place1 = @cells["#{letters[i]}2"]
+      place2 = @cells["#{letters[i]}3"]
+      place3 = @cells["#{letters[i]}4"]
+
+      p "#{letters[i]} #{place0.render} #{place1.render} #{place2.render} #{place3.render}"
+      i += 4
+
+      
+
     end
+
+      # require "pry" ; binding.pry
+  end
+
+
+#####
+  # puts   1 2 3 4
+  # puts A . . . . (0 1 2 3)
+  # puts B . . . .
+  # puts C . . . .
+  # puts D . . . .
+
+
+    # display = ""
+    # letters = ""
+    # nums = ""
+    # @cells.each do |cell|
+    #   letters << cell.last.coordinate.slice(0)
+    #   nums << cell.last.coordinate.slice(1)
+    # end
+    # i = 0
+    # @cells.each do |cell|
+    #   require "pry"; binding.pry
+    #   i += 1
+    # end
     # 1 iterator that prints out letters - "A - D"
 
     # 2nd iterator that prints out the cell & its coordinates - "A1, A2, A3, A4"
@@ -136,5 +171,5 @@ class Board
     # else
     #   render = @cells.map {|cell| cell.last.render}
     # end
-  end
+  # end
 end
