@@ -117,25 +117,47 @@ class Board
     @cells.each do |cell|
       letters << cell.last.coordinate.slice(0)
       nums << cell.last.coordinate.slice(1)
+    end #doend
+
+    if reveal == true
+      i = 0
+      4.times do #@cells.length #or cells.length
+        # num % i == 0
+        place0 = @cells["#{letters[i]}1"]
+        place1 = @cells["#{letters[i]}2"]
+        place2 = @cells["#{letters[i]}3"]
+        place3 = @cells["#{letters[i]}4"]
+
+        output = "#{letters[i]} #{place0.render(true)} #{place1.render(true)} #{place2.render(true)} #{place3.render(true)}"
+        i += 4
+        puts output
+      end
+    elsif
+      i = 0
+      4.times do #@cells.length #or cells.length
+        # num % i == 0
+        place0 = @cells["#{letters[i]}1"]
+        place1 = @cells["#{letters[i]}2"]
+        place2 = @cells["#{letters[i]}3"]
+        place3 = @cells["#{letters[i]}4"]
+
+        output = "#{letters[i]} #{place0.render} #{place1.render} #{place2.render} #{place3.render}"
+        i += 4
+        puts output
+      end
     end
 
-    i = 0
-    4.times do #@cells.length #or cells.length
-      # num % i == 0
-      place0 = @cells["#{letters[i]}1"]
-      place1 = @cells["#{letters[i]}2"]
-      place2 = @cells["#{letters[i]}3"]
-      place3 = @cells["#{letters[i]}4"]
+      # board_placements = ""
+      # @cells.each do |cell|
+      #   board_placements[letters[i]] = cell.last.render
+      #   i += 4
+      # end
+      #
+      # board_placements
 
-      p "#{letters[i]} #{place0.render} #{place1.render} #{place2.render} #{place3.render}"
-      i += 4
+    end#def end
 
-      
 
-    end
-
-      # require "pry" ; binding.pry
-  end
 
 
 #####
