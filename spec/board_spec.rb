@@ -245,10 +245,9 @@ RSpec.describe Board do
         @cell_6 = @board.cells["B4"]
 
         @cell_4.fire_upon
-        @cell_5.fire_upon #will sink sub
-        @cell_6.fire_upon #will miss
-        @cell_3.fire_upon #will hit cruiser
-
+        @cell_5.fire_upon
+        @cell_6.fire_upon
+        @cell_3.fire_upon
 
         expect(@board.render).to eq(4)
         expect(@cell_3.render(true)).to eq("H")
