@@ -69,15 +69,7 @@ RSpec.describe Board do
       expect(@board.vertical_check(["A1", "B2", "C1"])).to eq(false)
     end
   end
-
-  it 'will tell us if consecutive' do
-    expect(@board.is_consecutive?([1, 2, 3])).to eq(true)
-    expect(@board.is_consecutive?([4, 4])).to eq(false)
-    expect(@board.is_consecutive?([2, 3, 4])).to eq(true)
-    expect(@board.is_consecutive?([3, 4])).to eq(true)
-    expect(@board.is_consecutive?([3, 2, 1])).to eq(false)
-  end
-
+ 
   describe " horizontal check & valid placement" do
 
     before do
@@ -209,14 +201,15 @@ RSpec.describe Board do
     it "runs render 4 times" do
       expect(@board.render).to eq(4)
     end
- end
+  end
+  
   describe 'render conditions' do
     before do
       @board = Board.new
       @cruiser = Ship.new("Cruiser", 3)
     end
 
-    it 'renders the board with shipconditions' do
+    it 'renders the board with ship conditions' do
       @board.place(@cruiser, ["A1", "A2", "A3"])
       @cell_1 = @board.cells["A1"]
       @cell_2 = @board.cells["A2"]
@@ -227,33 +220,33 @@ RSpec.describe Board do
       expect(@cell_2.render(true)).to eq("S")
       expect(@cell_3.render(true)).to eq("S")
     end
+  end
 
-    describe 'render conditions' do
-      before do
-        @board = Board.new
-        @cruiser = Ship.new("Cruiser", 3)
-      end
+  describe 'render conditions' do
+    before do
+      @board = Board.new
+      @cruiser = Ship.new("Cruiser", 3)
+    end
 
-      it 'checks to make sure Hit, Miss, and Sunk are read on board' do
-        @board.place(@cruiser, ["A1", "A2", "A3"])
-        @board.place(@submarine, ["B2", "B3"])
-        @cell_1 = @board.cells["A1"]
-        @cell_2 = @board.cells["A2"]
-        @cell_3 = @board.cells["A3"]
-        @cell_4 = @board.cells["B2"]
-        @cell_5 = @board.cells["B3"]
-        @cell_6 = @board.cells["B4"]
+    it 'checks to make sure Hit, Miss, and Sunk are read on board' do
+      @board.place(@cruiser, ["A1", "A2", "A3"])
+      @board.place(@submarine, ["B2", "B3"])
+      @cell_1 = @board.cells["A1"]
+      @cell_2 = @board.cells["A2"]
+      @cell_3 = @board.cells["A3"]
+      @cell_4 = @board.cells["B2"]
+      @cell_5 = @board.cells["B3"]
+      @cell_6 = @board.cells["B4"]
 
-        @cell_4.fire_upon
-        @cell_5.fire_upon
-        @cell_6.fire_upon
-        @cell_3.fire_upon
+      @cell_4.fire_upon
+      @cell_5.fire_upon
+      @cell_6.fire_upon
+      @cell_3.fire_upon
 
-        expect(@board.render).to eq(4)
-        expect(@cell_3.render(true)).to eq("H")
-        expect(@cell_6.render(true)).to eq("M")
-        expect(@cell_5.render(true)).to eq("X")
-      end
+      expect(@board.render).to eq(4)
+      expect(@cell_3.render(true)).to eq("H")
+      expect(@cell_6.render(true)).to eq("M")
+      expect(@cell_5.render(true)).to eq("X")
     end
   end
 end
