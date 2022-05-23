@@ -26,23 +26,6 @@ class Board
     @cells.any? {|cell| cell.include?(coord)}
   end
 
-  def is_consecutive?(coord_array)
-    length = coord_array.length
-    pass_test = false
-
-    i = 0
-    while i < length - 1
-      if coord_array[i + 1] == coord_array[i].to_i + 1
-        pass_test = true
-      else
-        pass_test = false
-      end
-      i += 1
-    end
-
-    pass_test
-  end
-
   def is_occupied?(coordinates)
     coordinates.one? {|coord| !@cells[coord].empty?}
   end
@@ -111,30 +94,40 @@ class Board
   end
 
   def render(reveal = false)
-    display = ""
-    letters = ""
-    nums = ""
+
+    output = " 1 2 3 4\n"
+    letters = []
+    nums = []
     @cells.each do |cell|
       letters << cell.last.coordinate.slice(0)
       nums << cell.last.coordinate.slice(1)
     end
-    i = 0
-    @cells.each do |cell|
-      require "pry"; binding.pry
-      i += 1
+
+    if reveal == true
+      i = 0
+      4.times do
+        place0 = @cells["#{letters[i]}1"]
+        place1 = @cells["#{letters[i]}2"]
+        place2 = @cells["#{letters[i]}3"]
+        place3 = @cells["#{letters[i]}4"]
+
+        output += "#{letters[i]} #{place0.render(true)} #{place1.render(true)} #{place2.render(true)} #{place3.render(true)}\n"
+        i += 4
+        puts output
+      end
+    elsif reveal == false
+      i = 0
+      4.times do
+        place0 = @cells["#{letters[i]}1"]
+        place1 = @cells["#{letters[i]}2"]
+        place2 = @cells["#{letters[i]}3"]
+        place3 = @cells["#{letters[i]}4"]
+
+        output += "#{letters[i]} #{place0.render} #{place1.render} #{place2.render} #{place3.render}\n"
+        i += 4
+        puts output
+      end
     end
-    # 1 iterator that prints out letters - "A - D"
-
-    # 2nd iterator that prints out the cell & its coordinates - "A1, A2, A3, A4"
-
-    # Iterator 1- we keep the letters["A"] and then print them after every called newline
-
-    #Newline we run the nums cells print the num string and then connect it to the cells coordinate
-
-    # if reveal == true
-    #   render = @cells.map {|cell| cell.last.render(true)}
-    # else
-    #   render = @cells.map {|cell| cell.last.render}
-    # end
+    output
   end
 end
