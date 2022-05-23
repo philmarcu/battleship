@@ -192,21 +192,15 @@ RSpec.describe Board do
     expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq(false)
   end
 
-  describe 'render method' do
-    before do
-      @board = Board.new
-      @cruiser = Ship.new("Cruiser", 3)
-    end
-
-    it "runs render 4 times" do
-      expect(@board.render).to eq(4)
-    end
-  end
 
   describe 'render conditions' do
     before do
       @board = Board.new
       @cruiser = Ship.new("Cruiser", 3)
+    end
+
+    it 'renders the board empty to start' do
+      expect(@board.render). to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
     it 'renders the board with ship conditions' do
@@ -215,10 +209,11 @@ RSpec.describe Board do
       @cell_2 = @board.cells["A2"]
       @cell_3 = @board.cells["A3"]
 
-      expect(@board.render).to eq(4)
+
       expect(@cell_1.render(true)).to eq("S")
       expect(@cell_2.render(true)).to eq("S")
       expect(@cell_3.render(true)).to eq("S")
+      expect(@board.render(true)).to eq(" 1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
     end
   end
 
