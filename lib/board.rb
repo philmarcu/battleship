@@ -94,7 +94,8 @@ class Board
   end
 
   def render(reveal = false)
-    puts " 1 2 3 4"
+
+    output = " 1 2 3 4\n"
     letters = []
     nums = []
     @cells.each do |cell|
@@ -110,11 +111,11 @@ class Board
         place2 = @cells["#{letters[i]}3"]
         place3 = @cells["#{letters[i]}4"]
 
-        output = "#{letters[i]} #{place0.render(true)} #{place1.render(true)} #{place2.render(true)} #{place3.render(true)}"
+        output += "#{letters[i]} #{place0.render(true)} #{place1.render(true)} #{place2.render(true)} #{place3.render(true)}\n"
         i += 4
         puts output
       end
-    elsif
+    elsif reveal == false
       i = 0
       4.times do
         place0 = @cells["#{letters[i]}1"]
@@ -122,10 +123,11 @@ class Board
         place2 = @cells["#{letters[i]}3"]
         place3 = @cells["#{letters[i]}4"]
 
-        output = "#{letters[i]} #{place0.render} #{place1.render} #{place2.render} #{place3.render}"
+        output += "#{letters[i]} #{place0.render} #{place1.render} #{place2.render} #{place3.render}\n"
         i += 4
         puts output
       end
     end
+    output
   end
 end
