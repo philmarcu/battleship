@@ -69,7 +69,7 @@ RSpec.describe Board do
       expect(@board.vertical_check(["A1", "B2", "C1"])).to eq(false)
     end
   end
- 
+
   describe " horizontal check & valid placement" do
 
     before do
@@ -202,7 +202,7 @@ RSpec.describe Board do
       expect(@board.render).to eq(4)
     end
   end
-  
+
   describe 'render conditions' do
     before do
       @board = Board.new
@@ -243,7 +243,7 @@ RSpec.describe Board do
       @cell_6.fire_upon
       @cell_3.fire_upon
 
-      expect(@board.render).to eq(4)
+      expect(@board.render).to eq(" 1 2 3 4\nA . . H .\nB . X X M\nC . . . .\nD . . . .\n")
       expect(@cell_3.render(true)).to eq("H")
       expect(@cell_6.render(true)).to eq("M")
       expect(@cell_5.render(true)).to eq("X")
