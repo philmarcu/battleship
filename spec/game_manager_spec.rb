@@ -14,8 +14,8 @@ RSpec.describe Ship do
   end
 
   it 'can send a welcome message' do
-    allow($sdtin).to receive(:gets).and_return('p')
-    valid
-    expect(game.welcome_message).to eq(input)
+    allow(game.welcome_message).to receive(:gets).and_return('p', 'q')
+    msg = double(msg)
+    expect(game.welcome_message).to eq(msg)
   end
 end

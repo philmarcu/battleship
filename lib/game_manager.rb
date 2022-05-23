@@ -7,7 +7,7 @@ class Game_Manager
 
   def welcome_message
     puts "Welcome to BATTLESHIP"
-    puts "Enter p to play. Entere q to quit."
+    puts "Enter p to play. Enter q to quit."
     input = gets.chomp
 
     if input == "p"
@@ -18,11 +18,11 @@ class Game_Manager
     end
   end
 
-  def comp_place
+  def comp_place(ship, coord)
     require "pry"; binding.pry
     # limit computers' choices by making a valid_placement array of coordinates
     # valid_arrays = []
-    
+
     #@board.cells.each do |coord|
 
     #might need to load in new boards
@@ -36,8 +36,10 @@ class Game_Manager
     # in line (thru valid_placement?) with the 1st choice.
     # Then we need another ranomizer method - variable = Random.new
     # variable.rand(2)
+
+
   end
 
-  def user_place
+  def user_place(ship, coord)
   end
 end
