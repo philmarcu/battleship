@@ -2,6 +2,7 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/game_manager'
+require './lib/turn'
 
 
 RSpec.describe Ship do
