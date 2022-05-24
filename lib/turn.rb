@@ -24,7 +24,7 @@ attr_reader :comp_board, :player_board, :player_shot, :comp_random_shot, :given_
   end
 
   def player_shot(given_coord)
-    target_cell = cell_finder(given_coord).flatten[1]
+    target_cell = cell_finder(given_coord)
     # require 'pry' ; binding.pry
     if @comp_board.valid_coordinate?(@given_coord)
       target_cell.fire_upon
@@ -51,7 +51,8 @@ attr_reader :comp_board, :player_board, :player_shot, :comp_random_shot, :given_
         located_cell << cell
       end
     end
-    located_cell
+    located_cell.flatten[1]
+    # require 'pry' ; binding.pry
   end
 
   def comp_shot
@@ -75,27 +76,23 @@ attr_reader :comp_board, :player_board, :player_shot, :comp_random_shot, :given_
   end
 
   def feedback(player_shot, comp_choice)
-    #shot missed
-    #shot Hit
-    #shot sunk
-    # if @comp_board.cell(@player_shot).fired_upon? && @comp_board.cell(@player_shot).empty? #true
-    curr_cell = cell_finder(player_shot).flatten[1]
-    # require 'pry' ; binding.pry
+    curr_cell = cell_finder(player_shot)
     status = ""
     sunk = false
-    if curr_cell.fired_upon && !curr_cell.empty? #true true
-      status == "hit"
-    elsif curr_cell.fired_upon && curr_cell.empty? #true /false
-      status == "miss"
+    if curr_cell.fired_upon? && !curr_cell.empty? #true false
+      status = "hit"
+    elsif curr_cell.fired_upon? && curr_cell.empty? #true /true
+      status =  "miss"
     elsif curr_cell.ship.sunk?
       sunk = true
     end
-
     if sunk == false
-      puts "Your shot on #{curr_cell} was a #{status}"
+      "Your shot on #{curr_cell.coordinate} was a #{status}"
     else
-      puts "You sunk the #{curr_cell.ship.name}"
+      "You sunk the #{curr_cell.ship.name}"
     end
+
+    # require 'pry' ; binding.pry
   end
 
 end

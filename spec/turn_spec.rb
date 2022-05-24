@@ -14,7 +14,7 @@ RSpec.describe Turn do
     @turn = Turn.new(@comp_board, @player_board)
   end
 
-  it 'exists' do
+   xit 'exists' do
     expect(@turn).to be_a(Turn)
   end
 
@@ -22,7 +22,7 @@ RSpec.describe Turn do
     expect(@turn.comp_board.render).to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
   end
 
-  it 'comp_shots' do
+  xit 'comp_shots' do
     expect(@turn.comp_choice).to be_a(Cell)
   end
 
@@ -31,8 +31,7 @@ RSpec.describe Turn do
   end
 
   it "returns feedback" do
-    player_input = Cell.new("A4")
-    comp_input = Cell.new("C1")
-    allow(@turn.feedback(player_input, comp_input)).to receive(player_input).and_return("A4")
+
+    expect(@turn.feedback("A4", "C1")).to eq("Your shot on A4 was a miss")
   end
 end
