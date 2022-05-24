@@ -1,3 +1,4 @@
+require_relative 'cell'
 class Board
 
   attr_reader :cells

@@ -1,9 +1,11 @@
 class Game_Manager
-  attr_reader :board #might attr_reader horizontal + vertical arrays in initialize
+  attr_reader :board, :comp_board, :player_board #might attr_reader horizontal + vertical arrays in initialize
 
   def initialize
     welcome_message
     @board = Board.new
+    @comp_board = Board.new
+    @player_board = Board.new
   end
 
   def welcome_message
@@ -11,6 +13,7 @@ class Game_Manager
     puts "Enter p to play. Enter q to quit."
     input = gets.chomp
     if input == "p"
+      play
     elsif input == "q"
       puts "Now exiting game"
     else
@@ -18,8 +21,59 @@ class Game_Manager
     end
   end
 
+  def play
+    starting_board #initializes computer board + places
+    puts "You now need to lay out your two ships."
+    puts "The Cruiser is three units long and the Submarine is two units long."
+
+    @player_board.render
+    puts "Enter the squares for the Cruiser (3 spaces):"
+    cru_placement_input = gets.chomp
+    if @player_board.valid_placement?("Cruiser", cru_placement_input) #if valid placement
+      @player_board.place("Cruiser", cru_placement_input)
+      @player_board.render(true)
+    else #if not valid placement
+      validity = false
+      while validity != true
+        puts "Those are invalid coordinates. Please try again:"
+        sub_placement_input = gets.chomp
+        validity = @player_board.valid_placement?("Cruiser", cru_placement_input)
+      end
+      @player_board.place("Cruiser", cru_placement_input)
+      @player_board.render(true)
+    end
+
+    puts "Enter the squares for the Submarine (2 spaces):"
+    sub_placement_input = gets.chomp
+    if @player_board.valid_placement?("Submarine", sub_placement_input)
+      @player_board.place(@submarine, sub_placement_input)
+      @player_board.render(true)
+    else
+      validity = false
+      while validity != true
+        puts "Those are invalid coordinates. Please try again:"
+        sub_placement_input = gets.chomp
+        validity = @player_board.valid_placement?("Submarine", sub_placement_input)
+      end
+      @player_board.place("Submarine", sub_placement_input)
+      @player_board.render(true)
+      ##maybe write an until valid_placement, loop?
+    end
+  end
+
+  def starting_board(reveal = false)
+    comp_sub_coords = comp_place("Submarine") #will return array of 2 coords for sub
+    comp_cru_coords = comp_place("Cruiser") #will return array of 3 coords for cruiser
+    @comp_board.place("Submarine", comp_sub_coords)
+    @comp_board.place("Cruiser", comp_cru_coords)
+    #will place computers ships -- WILL MAYBE NEED 2 BOARDS?
+
+    puts "I have laid out my ships on the grid."
+
+  end
+
   def comp_place(ship)
-    rand_choice = Random.new #1 == horizontal, 2 == vertical
+    rand_choice = Random.new
 
     h_sub_1 = ["A1", "A2"]
     h_sub_2 = ["A2", "A3"]
@@ -72,7 +126,7 @@ class Game_Manager
     vertical_cru = [v_cru_1, v_cru_2, v_cru_3, v_cru_4, v_cru_5, v_cru_6, v_cru_7, v_cru_8]
     final_comp_coord = []
 
-    if ship.name.downcase == "submarine"
+    if ship.downcase == "submarine"
       choice = rand_choice.rand(1..2)
       if choice == 1
         final_comp_coord << horizontal_sub.sample
@@ -80,7 +134,7 @@ class Game_Manager
         final_comp_coord << vertical_sub.sample
       end
 
-    elsif ship.name.downcase == "cruiser"
+    elsif ship.downcase == "cruiser"
       choice = rand_choice.rand(1..2)
       if choice == 1
         final_comp_coord << horizontal_cru.sample
