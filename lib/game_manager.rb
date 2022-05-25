@@ -28,8 +28,10 @@ class Game_Manager
       play
     elsif input == "q"
       puts "Now exiting game"
+      exit(true)
     else
       puts "Invalid entry, please use p or q"
+      input = gets.chomp
     end
   end
 
@@ -81,13 +83,11 @@ class Game_Manager
   end
 
   def starting_board(reveal = false)
-    comp_sub_coords = comp_place(@comp_submarine.name) #will return array of 2 coords for sub
-    comp_cru_coords = comp_place(@comp_cruiser.name) #will return array of 3 coords for cruiser
+    comp_sub_coords = comp_place(@comp_submarine.name)
+    comp_cru_coords = comp_place(@comp_cruiser.name)
     @comp_board.place(@comp_submarine, comp_sub_coords)
     @comp_board.place(@comp_cruiser, comp_cru_coords)
-    #will place computers ships -- WILL MAYBE NEED 2 BOARDS?
     puts "I have laid out my ships on the grid."
-
   end
 
   def comp_place(ship)
@@ -164,13 +164,12 @@ class Game_Manager
   end
 
   def end_game
-    # ending_game = false
     if @play_ships[0].sunk? == true && @play_ships[1].sunk? == true
       puts "Aww the Computer Wins!"
-      # ending_game = true
+      exit(true)
     elsif @comp_ships[0].sunk? && @comp_ships[1].sunk?
       puts "Yay You Win!"
-      # ending_game = true
+      exit(true)
     end
   end
 end

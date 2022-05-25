@@ -45,14 +45,6 @@ RSpec.describe Board do
       expect(@board.is_occupied?(["B1"])).to eq(false)
       expect(@board.is_occupied?(["D2"])).to eq(false)
     end
-
-    it 'will tell us if consecutive' do
-      expect(@board.is_consecutive?([1, 2, 3])).to eq(true)
-      expect(@board.is_consecutive?([4, 4])).to eq(false)
-      expect(@board.is_consecutive?([2, 3, 4])).to eq(true)
-      expect(@board.is_consecutive?([3, 4])).to eq(true)
-      expect(@board.is_consecutive?([3, 2, 1])).to eq(false)
-    end
   end
 
   describe 'vertical check' do
@@ -147,8 +139,6 @@ RSpec.describe Board do
     end
   end
 
-  describe "#valid_placement"
-
   describe '#valid_placement #is_consecutive?' do
     it 'can tell if a place is #valid_placement? consecutively' do
       @board.cells.values[0].place_ship(@cruiser)
@@ -169,6 +159,7 @@ RSpec.describe Board do
       @cell_4 = @board.cells["B2"]
       @cell_5 = @board.cells["B3"]
     end
+
     it 'will place' do
       @board.place(@cruiser, ["A1", "A2", "A3"])
       @board.place(@submarine, ["B2", "B3"])
@@ -199,11 +190,11 @@ RSpec.describe Board do
       @cruiser = Ship.new("Cruiser", 3)
     end
 
-    xit 'renders the board empty to start' do
-      expect(@board.render). to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+    it 'renders the board empty to start' do
+      expect(@board.render). to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
-    xit 'renders the board with ship conditions' do
+    it 'renders the board with ship conditions' do
       @board.place(@cruiser, ["A1", "A2", "A3"])
       @cell_1 = @board.cells["A1"]
       @cell_2 = @board.cells["A2"]
@@ -213,7 +204,7 @@ RSpec.describe Board do
       expect(@cell_1.render(true)).to eq("S")
       expect(@cell_2.render(true)).to eq("S")
       expect(@cell_3.render(true)).to eq("S")
-      expect(@board.render(true)).to eq(" 1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
+      expect(@board.render(true)).to eq("  1 2 3 4\nA S S S .\nB . . . .\nC . . . .\nD . . . .\n")
     end
   end
 
@@ -223,7 +214,7 @@ RSpec.describe Board do
       @cruiser = Ship.new("Cruiser", 3)
     end
 
-    xit 'checks to make sure Hit, Miss, and Sunk are read on board' do
+    it 'checks to make sure Hit, Miss, and Sunk are read on board' do
       @board.place(@cruiser, ["A1", "A2", "A3"])
       @board.place(@submarine, ["B2", "B3"])
       @cell_1 = @board.cells["A1"]
@@ -238,7 +229,7 @@ RSpec.describe Board do
       @cell_6.fire_upon
       @cell_3.fire_upon
 
-      expect(@board.render).to eq(" 1 2 3 4\nA . . H .\nB . X X M\nC . . . .\nD . . . .\n")
+      expect(@board.render).to eq("  1 2 3 4\nA . . H .\nB . X X M\nC . . . .\nD . . . .\n")
       expect(@cell_3.render(true)).to eq("H")
       expect(@cell_6.render(true)).to eq("M")
       expect(@cell_5.render(true)).to eq("X")

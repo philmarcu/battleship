@@ -2,6 +2,7 @@ require './lib/ship'
 require './lib/cell'
 require './lib/board'
 require './lib/turn'
+require './lib/game_manager'
 
 RSpec.describe Turn do
   before :each do
@@ -16,24 +17,25 @@ RSpec.describe Turn do
     @turn = Turn.new(@comp_board, @player_board)
   end
 
-   xit 'exists' do
+   it 'exists' do
     expect(@turn).to be_a(Turn)
   end
 
-  xit 'can render the comp_board' do
-    expect(@turn.comp_board.render).to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+  it 'can render the comp_board' do
+    expect(@turn.comp_board.render).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
   end
 
-  xit 'comp_shots' do
-    expect(@turn.comp_choice).to be_a(Cell)
+  xit 'can collect computer & player shots' do
+    expect(@turn.comp_choice).to be_a(String)
   end
 
-  xit 'player can make a shot' do
-
-  end
-
-  it "returns feedback" do
-
-    expect(@turn.feedback("A4", "C1")).to eq("Your shot on A4 was a miss")
+  it 'can get #feedback' do
+    @player_board.place(@play_cruiser,["A1", "B1", "C1"])
+    @player_board.place(@play_submarine, ["D1", "D2"])
+    @comp_board.place(@comp_cruiser,["C2", "C3", "C4"])
+    @comp_board.place(@comp_submarine, ["B3", "B4"])
+    @comp_board.cells["B4"].fire_upon
+    @comp_board.cells["B3"].fire_upon
+    expect(@turn.cpu_feedback("B4")).to eq(false)
   end
 end
