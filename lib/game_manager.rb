@@ -1,3 +1,5 @@
+require 'byebug'
+
 require './lib/board'
 class Game_Manager
 
@@ -44,7 +46,7 @@ class Game_Manager
 
     print @player_board.render
     puts "Enter the squares for the Cruiser (3 spaces):"
-    cru_placement_input = STDIN.gets.chomp.split #if valid placement
+    cru_placement_input = STDIN.gets.chomp.upcase.split #if valid placement
     if @player_board.valid_placement?(@play_cruiser, cru_placement_input)
       @player_board.place(@play_cruiser, cru_placement_input)
      print @player_board.render(true)
@@ -52,7 +54,7 @@ class Game_Manager
       validity = false
       while validity != true
         puts "Those are invalid coordinates. Please try again:"
-        sub_placement_input = STDIN.gets.chomp.split
+        cru_placement_input = STDIN.gets.chomp.upcase.split
         validity = @player_board.valid_placement?(@play_cruiser, cru_placement_input)
       end
       @player_board.place(@play_cruiser, cru_placement_input)
@@ -60,7 +62,7 @@ class Game_Manager
     end
 
     puts "Enter the squares for the Submarine (2 spaces):"
-    sub_placement_input = STDIN.gets.chomp.split
+    sub_placement_input = STDIN.gets.chomp.upcase.split
     if @player_board.valid_placement?(@play_submarine, sub_placement_input)
       @player_board.place(@play_submarine, sub_placement_input)
       print @player_board.render(true)
@@ -68,7 +70,7 @@ class Game_Manager
       validity = false
       while validity != true
         puts "Those are invalid coordinates. Please try again:"
-        sub_placement_input = STDIN.gets.chomp.split
+        sub_placement_input = STDIN.gets.chomp.upcase.split
         validity = @player_board.valid_placement?(@play_submarine, sub_placement_input)
       end
       @player_board.place(@play_submarine, sub_placement_input)
@@ -167,19 +169,13 @@ class Game_Manager
     end
   end
 
-  def turn_loop
-    exit = false
+  def turn
+    _exit = false
 
-    until exit == true
-      @turn.board_output
-      # require 'pry'; binding.pry
-      exit = @turn.board_output
-
-    # if exit == false
-    #   @turn.board_output
-    # elsif exit == true
-    #   require 'pry'; binding.pry
-    #
+    while !_exit
+      _exit = @turn.board_output
     end
+
+    _exit
   end
 end
