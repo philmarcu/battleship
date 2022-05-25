@@ -8,7 +8,8 @@ class Game_Manager
               :play_cruiser,
               :play_submarine,
               :comp_ships,
-              :play_ships
+              :play_ships,
+              :turn
   def initialize
     @comp_board = Board.new
     @player_board = Board.new
@@ -18,6 +19,7 @@ class Game_Manager
     @play_submarine = Ship.new("Submarine", 2)
     @comp_ships = [@comp_cruiser, @comp_submarine]
     @play_ships = [@comp_cruiser, @comp_submarine]
+    @turn = Turn.new(@comp_board, @player_board)
   end
 
   def welcome_message
@@ -25,17 +27,17 @@ class Game_Manager
     puts "Enter p to play. Enter q to quit."
     input = gets.chomp
     if input == "p"
-      play
+      return "p"
     elsif input == "q"
       puts "Now exiting game"
-      exit(true)
+      return "q"
     else
       puts "Invalid entry, please use p or q"
       input = gets.chomp
     end
   end
 
-  def play
+  def setup #setup not play (FORMERLY PLAY METHOD)
     starting_board #initializes computer board + places
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
@@ -46,7 +48,7 @@ class Game_Manager
     if @player_board.valid_placement?(@play_cruiser, cru_placement_input)
       @player_board.place(@play_cruiser, cru_placement_input)
      print @player_board.render(true)
-    else #if not valid placement
+   else #if not valid placement THIS LOOP RUNS FOREVER
       validity = false
       while validity != true
         puts "Those are invalid coordinates. Please try again:"
@@ -71,14 +73,6 @@ class Game_Manager
       end
       @player_board.place(@play_submarine, sub_placement_input)
       print @player_board.render(true)
-      ##maybe write an until valid_placement, loop?
-    end
-    turn = Turn.new(@comp_board, @player_board)
-
-    if end_game == true
-      return end_game
-    else
-      turn.board_output
     end
   end
 
@@ -170,6 +164,22 @@ class Game_Manager
     elsif @comp_ships[0].sunk? && @comp_ships[1].sunk?
       puts "Yay You Win!"
       exit(true)
+    end
+  end
+
+  def turn_loop
+    exit = false
+
+    until exit == true
+      @turn.board_output
+      # require 'pry'; binding.pry
+      exit = @turn.board_output
+
+    # if exit == false
+    #   @turn.board_output
+    # elsif exit == true
+    #   require 'pry'; binding.pry
+    #
     end
   end
 end

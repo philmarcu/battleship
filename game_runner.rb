@@ -10,9 +10,19 @@ require 'pry'
 
 def start
   game = Game_Manager.new
-  while game.welcome_message == false
-    
+#if welcome_message/main menu == p (returns p), trigger play loop
+  if game.welcome_message == "p"
+    game.setup
+    while game.turn_loop == false
+      game.turn_loop
+    end
+
+    #while turn.board_output == false #turn method must return T or F
+      #loops turns/board_output
+  else
+    game.welcome_message
   end
+
 end
 
 start
