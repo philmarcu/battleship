@@ -65,13 +65,12 @@ class Board
   end
 
   def valid_placement?(ship, coord)
-    nums = coord.map {|coord| coord.slice(1).to_i}
     pass = false
-    if ship.length != coord.count
+    if ship.length != coord.length
       pass = false
     elsif is_occupied?(coord) == true
       pass = false
-    elsif horizontal_check(coord) == true && is_consecutive?(nums)
+    elsif horizontal_check(coord) == true
       pass = true
     elsif vertical_check(coord) == true
       pass = true
@@ -95,40 +94,12 @@ class Board
   end
 
   def render(reveal = false)
+    output = "  1 2 3 4\n" +
+    "A #{@cells["A1"].render(reveal)} #{@cells["A2"].render(reveal)} #{@cells["A3"].render(reveal)} #{@cells["A4"].render(reveal)}\n" +
+    "B #{@cells["B1"].render(reveal)} #{@cells["B2"].render(reveal)} #{@cells["B3"].render(reveal)} #{@cells["B4"].render(reveal)}\n" +
+    "C #{@cells["C1"].render(reveal)} #{@cells["C2"].render(reveal)} #{@cells["C3"].render(reveal)} #{@cells["C4"].render(reveal)}\n" +
+    "D #{@cells["D1"].render(reveal)} #{@cells["D2"].render(reveal)} #{@cells["D3"].render(reveal)} #{@cells["D4"].render(reveal)}\n"
 
-    output = " 1 2 3 4\n"
-    letters = []
-    nums = []
-    @cells.each do |cell|
-      letters << cell.last.coordinate.slice(0)
-      nums << cell.last.coordinate.slice(1)
-    end
-
-    if reveal == true
-      i = 0
-      4.times do
-        place0 = @cells["#{letters[i]}1"]
-        place1 = @cells["#{letters[i]}2"]
-        place2 = @cells["#{letters[i]}3"]
-        place3 = @cells["#{letters[i]}4"]
-
-        output += "#{letters[i]} #{place0.render(true)} #{place1.render(true)} #{place2.render(true)} #{place3.render(true)}\n"
-        i += 4
-        puts output
-      end
-    elsif reveal == false
-      i = 0
-      4.times do
-        place0 = @cells["#{letters[i]}1"]
-        place1 = @cells["#{letters[i]}2"]
-        place2 = @cells["#{letters[i]}3"]
-        place3 = @cells["#{letters[i]}4"]
-
-        output += "#{letters[i]} #{place0.render} #{place1.render} #{place2.render} #{place3.render}\n"
-        i += 4
-        puts output
-      end
-    end
     output
   end
 end

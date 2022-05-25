@@ -1,11 +1,12 @@
+require './lib/board'
 class Game_Manager
-  attr_reader :board, :comp_board, :player_board #might attr_reader horizontal + vertical arrays in initialize
 
+  attr_reader :comp_board, :player_board, :cruiser, :submarine
   def initialize
-    welcome_message
-    @board = Board.new
     @comp_board = Board.new
     @player_board = Board.new
+    @cruiser = Ship.new("Cruiser", 3)
+    @submarine = Ship.new("Submarine", 2)
   end
 
   def welcome_message
@@ -26,46 +27,48 @@ class Game_Manager
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."
 
-    @player_board.render
+    print @player_board.render
     puts "Enter the squares for the Cruiser (3 spaces):"
-    cru_placement_input = gets.chomp
-    if @player_board.valid_placement?("Cruiser", cru_placement_input) #if valid placement
-      @player_board.place("Cruiser", cru_placement_input)
-      @player_board.render(true)
+    cru_placement_input = STDIN.gets.chomp.split #if valid placement
+    if @player_board.valid_placement?(@cruiser, cru_placement_input)
+      @player_board.place(@cruiser, cru_placement_input)
+     print @player_board.render(true)
     else #if not valid placement
       validity = false
       while validity != true
         puts "Those are invalid coordinates. Please try again:"
-        sub_placement_input = gets.chomp
-        validity = @player_board.valid_placement?("Cruiser", cru_placement_input)
+        sub_placement_input = STDIN.gets.chomp.split
+        validity = @player_board.valid_placement?(@cruiser, cru_placement_input)
       end
-      @player_board.place("Cruiser", cru_placement_input)
-      @player_board.render(true)
+      @player_board.place(@cruiser, cru_placement_input)
+      print @player_board.render(true)
     end
 
     puts "Enter the squares for the Submarine (2 spaces):"
-    sub_placement_input = gets.chomp
-    if @player_board.valid_placement?("Submarine", sub_placement_input)
+    sub_placement_input = STDIN.gets.chomp.split
+    if @player_board.valid_placement?(@submarine, sub_placement_input)
       @player_board.place(@submarine, sub_placement_input)
-      @player_board.render(true)
+      print @player_board.render(true)
     else
       validity = false
       while validity != true
         puts "Those are invalid coordinates. Please try again:"
-        sub_placement_input = gets.chomp
-        validity = @player_board.valid_placement?("Submarine", sub_placement_input)
+        sub_placement_input = STDIN.gets.chomp.split
+        validity = @player_board.valid_placement?(@submarine, sub_placement_input)
       end
-      @player_board.place("Submarine", sub_placement_input)
-      @player_board.render(true)
+      @player_board.place(@submarine, sub_placement_input)
+      print @player_board.render(true)
       ##maybe write an until valid_placement, loop?
     end
+    turn = Turn.new(@comp_board, @player_board)
+    turn
   end
 
   def starting_board(reveal = false)
-    comp_sub_coords = comp_place("Submarine") #will return array of 2 coords for sub
-    comp_cru_coords = comp_place("Cruiser") #will return array of 3 coords for cruiser
-    @comp_board.place("Submarine", comp_sub_coords)
-    @comp_board.place("Cruiser", comp_cru_coords)
+    comp_sub_coords = comp_place(@submarine) #will return array of 2 coords for sub
+    comp_cru_coords = comp_place(@cruiser) #will return array of 3 coords for cruiser
+    @comp_board.place(@submarine, comp_sub_coords)
+    @comp_board.place(@cruiser, comp_cru_coords)
     #will place computers ships -- WILL MAYBE NEED 2 BOARDS?
 
     puts "I have laid out my ships on the grid."
@@ -126,7 +129,7 @@ class Game_Manager
     vertical_cru = [v_cru_1, v_cru_2, v_cru_3, v_cru_4, v_cru_5, v_cru_6, v_cru_7, v_cru_8]
     final_comp_coord = []
 
-    if ship.downcase == "submarine"
+    if ship == "submarine"
       choice = rand_choice.rand(1..2)
       if choice == 1
         final_comp_coord << horizontal_sub.sample
@@ -134,7 +137,7 @@ class Game_Manager
         final_comp_coord << vertical_sub.sample
       end
 
-    elsif ship.downcase == "cruiser"
+    elsif ship == "cruiser"
       choice = rand_choice.rand(1..2)
       if choice == 1
         final_comp_coord << horizontal_cru.sample

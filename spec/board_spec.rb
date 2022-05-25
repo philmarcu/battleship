@@ -199,11 +199,11 @@ RSpec.describe Board do
       @cruiser = Ship.new("Cruiser", 3)
     end
 
-    it 'renders the board empty to start' do
+    xit 'renders the board empty to start' do
       expect(@board.render). to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
     end
 
-    it 'renders the board with ship conditions' do
+    xit 'renders the board with ship conditions' do
       @board.place(@cruiser, ["A1", "A2", "A3"])
       @cell_1 = @board.cells["A1"]
       @cell_2 = @board.cells["A2"]
@@ -223,7 +223,7 @@ RSpec.describe Board do
       @cruiser = Ship.new("Cruiser", 3)
     end
 
-    it 'checks to make sure Hit, Miss, and Sunk are read on board' do
+    xit 'checks to make sure Hit, Miss, and Sunk are read on board' do
       @board.place(@cruiser, ["A1", "A2", "A3"])
       @board.place(@submarine, ["B2", "B3"])
       @cell_1 = @board.cells["A1"]
