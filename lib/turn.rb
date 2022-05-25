@@ -8,9 +8,11 @@ attr_reader :comp_board, :player_board, :player_shot, :comp_random_shot, :given_
     @player_board = player_board
     @player_shot = ""
     @comp_choice = ""
+  end
 
+  def board_output
     puts "=============COMPUTER BOARD============="
-    print @comp_board.render
+    print @comp_board.render(true)
 
     puts "==============PLAYER BOARD=============="
     print @player_board.render(true)
@@ -20,8 +22,8 @@ attr_reader :comp_board, :player_board, :player_shot, :comp_random_shot, :given_
     player_shot(@given_coord)
     @comp_choice = comp_shot
     feedback(@given_coord, @comp_choice)
-
   end
+
 
   def player_shot(given_coord)
     target_cell = cell_finder(given_coord)
@@ -65,8 +67,9 @@ attr_reader :comp_board, :player_board, :player_shot, :comp_random_shot, :given_
         test_choice.fire_upon
         valid = true
         final_choice = test_choice
-      elsif test_choice.fire_upon? == true
+      elsif test_choice.fired_upon? == true
         test_choice = @comp_random_shot.sample
+        valid = false
       end
     end
 
@@ -75,7 +78,7 @@ attr_reader :comp_board, :player_board, :player_shot, :comp_random_shot, :given_
 
   def feedback(player_shot, comp_choice)
 
-    curr_cell = cell_finder(player_shot).flatten[1]
+    curr_cell = cell_finder(player_shot)
     status = ""
     sunk = false
     if curr_cell.fired_upon? && !curr_cell.empty?
@@ -83,15 +86,24 @@ attr_reader :comp_board, :player_board, :player_shot, :comp_random_shot, :given_
     elsif curr_cell.fired_upon? && curr_cell.empty?
       status = "miss"
     elsif curr_cell.ship.sunk?
+      require "pry"; binding.pry
       sunk = true
     end
-    
+
+    ship_sunk = 0
     if sunk == false
       puts "Your shot on #{curr_cell.coordinate} was a #{status}"
+      if curr_cell.ship.sunk?
+        ship_sunk += 1
+        puts "Your #{curr_cell.ship.name} has been sunk"
+        board_output
+      elsif ship_sunk == 2
+        sunk = true
+        puts "Game Over!"
+      else
+        board_output
+      end
     end
-    
-    if sunk == true
-      puts "Your #{curr_cell.ship.sunk.name} has been sunk"
-    end
+    sunk
   end
 end
