@@ -23,20 +23,13 @@ RSpec.describe Ship do
   end
 
   it 'starts game and initilizes comp board' do
-    expect(@comp_board.render(true)).to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+    expect(@comp_board.render(true)).to eq("  1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
   end
 
 
   it 'players can place' do
-    @player_board.place(@cruiser,["A1", "B1", "C1"])
-    @player_board.place(@submarine, ["D1", "D2"])
-    expect(@player_board.render(true)).to eq(" 1 2 3 4\nA S . . .\nB S . . .\nC S . . .\nD S S . .\n")
+    @player_board.place(@play_cruiser,["A1", "B1", "C1"])
+    @player_board.place(@play_submarine, ["D1", "D2"])
+    expect(@player_board.render(true)).to eq("  1 2 3 4\nA S . . .\nB S . . .\nC S . . .\nD S S . .\n")
   end
-
-  it 'can have the computer place a ship' do
-    @comp_board.place(@submarine, ["C1", "C2"])
-    expect(@game.comp_place("submarine")).to eq(["C1", "C2"])
-  end
-
-
 end
