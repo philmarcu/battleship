@@ -1,5 +1,3 @@
-require 'byebug'
-
 require './lib/board'
 class Game_Manager
 
@@ -39,7 +37,7 @@ class Game_Manager
     end
   end
 
-  def setup #setup not play (FORMERLY PLAY METHOD)
+  def setup 
     starting_board #initializes computer board + places
     puts "You now need to lay out your two ships."
     puts "The Cruiser is three units long and the Submarine is two units long."

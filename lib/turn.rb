@@ -15,14 +15,14 @@ attr_reader :comp_board, :player_board
 
   def board_output
     puts "=============COMPUTER BOARD============="
-    print @comp_board.render(true)
+    print @comp_board.render
 
     puts "==============PLAYER BOARD=============="
     print @player_board.render(true)
 
     puts "Enter the coordinate for your shot:"
     given_coord = STDIN.gets.chomp.upcase
-  
+
     player_shot(given_coord)
     comp_choice = self.comp_shot
     # cpu_feedback(comp_choice)
@@ -65,14 +65,6 @@ attr_reader :comp_board, :player_board
   # end
 
   def cell_finder(comp_choice)
-    # located_cell = []
-    # @comp_board.cells.each do |cell|
-    #   if cell.last.coordinate == comp_choice
-    #     located_cell << cell
-    #   end
-    # end
-    # located_cell.flatten[1]
-
     @comp_board.cells[comp_choice]
   end
 
@@ -98,30 +90,30 @@ attr_reader :comp_board, :player_board
   end
 
   def player_feedback(player_shot)
-    # curr_cell = cell_finder(player_shot)
     curr_cell = @comp_board.cells[player_shot]
     play_status = ""
     all_sunk = false
-    
+
     # require 'pry' ; binding.pry
 
     if curr_cell.fired_upon? && !curr_cell.empty?
       play_status = "hit"
     elsif curr_cell.fired_upon? == false && curr_cell.empty? == true
       play_status = "miss"
-    elsif curr_cell.ship.sunk?
-      @player_ship_sunk += 1
+    # elsif curr_cell.ship.sunk?
+    #   @player_ship_sunk += 1
     end
 
     if all_sunk == false
       puts "Your shot on #{curr_cell.coordinate} was a #{play_status}"
-      # require 'pry'; binding.pry
-      # if !curr_cell.empty? && curr_cell.ship.sunk?
-      if curr_cell.ship.sunk?
-        @player_ship_sunk += 1
-        puts "My #{curr_cell.ship.name} has been sunk"
+
+      if curr_cell.ship != nil
+        if curr_cell.ship.sunk?
+          @player_ship_sunk += 1
+          puts "My #{curr_cell.ship.name} has been sunk"
+        end
       end
-      
+
 
       if @player_ship_sunk == 2
         all_sunk = true
@@ -134,7 +126,7 @@ attr_reader :comp_board, :player_board
   def cpu_feedback(comp_shot)
 
     cpu_status = ""
-    
+
     all_sunk = false
 
     if comp_shot.fired_upon? && !comp_shot.empty?
@@ -147,11 +139,13 @@ attr_reader :comp_board, :player_board
 
     if all_sunk == false
       puts "My shot on #{comp_shot.coordinate} was a #{cpu_status}"
+    if comp_shot.ship != nil
       if !comp_shot.empty? && comp_shot.ship.health == 0
         @cpu_ship_sunk += 1
         puts "Your #{comp_shot.ship.name} has been sunk"
       end
-      
+    end
+
       if @cpu_ship_sunk == 2
         all_sunk = true
         puts "Game Over!"
