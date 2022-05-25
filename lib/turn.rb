@@ -22,8 +22,13 @@ attr_reader :comp_board, :player_board
     given_coord = STDIN.gets.chomp
     player_shot(given_coord)
     comp_choice = self.comp_shot
-    cpu_feedback(comp_choice)
-    player_feedback(given_coord)
+    # cpu_feedback(comp_choice)
+    # player_feedback(given_coord)
+
+    #return T or F if game over
+    if cpu_feedback(comp_choice) == true || player_feedback(given_coord) == true
+      return true
+    end
   end
 
 
@@ -46,15 +51,15 @@ attr_reader :comp_board, :player_board
     valid
   end
 
-  def player_cell_finder(given_coord)
-    located_cell = []
-    @player_board.cells.each do |cell|
-      if cell.last.coordinate == given_coord
-        located_cell << cell
-      end
-    end
-    located_cell.flatten[1]
-  end
+  # def player_cell_finder(given_coord)
+  #   located_cell = []
+  #   @player_board.cells.each do |cell|
+  #     if cell.last.coordinate == given_coord
+  #       located_cell << cell
+  #     end
+  #   end
+  #   located_cell.flatten[1]
+  # end
 
   def cell_finder(comp_choice)
     located_cell = []
@@ -88,24 +93,26 @@ attr_reader :comp_board, :player_board
   end
 
   def player_feedback(player_shot)
-    curr_cell = player_cell_finder(player_shot)
+    curr_cell = cell_finder(player_shot)
     play_status = ""
     all_sunk = false
     player_ship_sunk = 0
+    # require 'pry' ; binding.pry
 
     if curr_cell.fired_upon? && !curr_cell.empty?
       play_status = "hit"
-    elsif curr_cell.fired_upon? && curr_cell.empty?
+    elsif curr_cell.fired_upon? == false && curr_cell.empty? == true
       play_status = "miss"
-    elsif curr_cell.ship.health == 0
+    elsif curr_cell.ship.sunk?
       player_ship_sunk += 1
     end
 
     if all_sunk == false
-      puts "My shot on #{curr_cell.coordinate} was a #{play_status}"
+      puts "Your shot on #{curr_cell.coordinate} was a #{play_status}"
+      # require 'pry'; binding.pry
       if !curr_cell.empty? && curr_cell.ship.sunk?
         player_ship_sunk += 1
-        puts "Your #{curr_cell.ship.name} has been sunk"
+        puts "My #{curr_cell.ship.name} has been sunk"
       elsif player_ship_sunk == 2
         all_sunk = true
         puts "Game Over!"
@@ -129,10 +136,10 @@ attr_reader :comp_board, :player_board
     end
 
     if all_sunk == false
-      puts "Your shot on #{comp_shot.coordinate} was a #{cpu_status}"
+      puts "My shot on #{comp_shot.coordinate} was a #{cpu_status}"
       if !comp_shot.empty? && comp_shot.ship.health == 0
         cpu_ship_sunk += 1
-        puts "My #{comp_shot.ship.name} has been sunk"
+        puts "Your #{comp_shot.ship.name} has been sunk"
       elsif cpu_ship_sunk == 2
         all_sunk = true
         puts "Game Over!"
