@@ -13,4 +13,4 @@ game = Game_Manager.new
 game.welcome_message
 
 
-binding.pry
+# binding.pry

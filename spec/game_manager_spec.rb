@@ -8,27 +8,32 @@ require './lib/turn'
 RSpec.describe Ship do
   before :each do
     @game = Game_Manager.new
-    # @board = Board.new
-    # @comp_board = Board.new
-    # @player_board = Board.new
+    @comp_board = Board.new
+    @player_board = Board.new
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    @turn = Turn.new(@comp_board, @player_board)
   end
 
   it 'exists' do
     expect(@game).to be_a(Game_Manager)
-    expect(@game.board).to be_a(Board)
+    expect(@comp_board).to be_a(Board)
   end
 
   it 'starts game and initilizes comp board' do
-    expect(@game.comp_board.render).to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+    expect(@comp_board.render).to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
   end
 
 
   it 'players can place' do
-    @game.player_board.place(@cruiser,["A1", "B1", "C1"])
-    @game.player_board.place(@submarine, ["D1", "D2"])
-    expect(@game.player_board.render(true)).to eq(" 1 2 3 4\nA S . . .\nB S . . .\nC S . . .\nD S S . .\n")
+    @player_board.place(@cruiser,["A1", "B1", "C1"])
+    @player_board.place(@submarine, ["D1", "D2"])
+    expect(@player_board.render(true)).to eq(" 1 2 3 4\nA S . . .\nB S . . .\nC S . . .\nD S S . .\n")
+  end
+
+  it 'can have the computer place a ship' do
+    @comp_board.place(@submarine, ["C1", "C2"])
+    expect(@game.comp_place("submarine")).to eq(["C1", "C2"])
   end
 
 
