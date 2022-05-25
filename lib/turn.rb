@@ -94,19 +94,14 @@ attr_reader :comp_board, :player_board
     play_status = ""
     all_sunk = false
 
-    # require 'pry' ; binding.pry
-
     if curr_cell.fired_upon? && !curr_cell.empty?
       play_status = "hit"
-    elsif curr_cell.fired_upon? == false && curr_cell.empty? == true
+    else #if curr_cell.fired_upon? == false && curr_cell.empty? == true
       play_status = "miss"
-    # elsif curr_cell.ship.sunk?
-    #   @player_ship_sunk += 1
     end
 
     if all_sunk == false
       puts "Your shot on #{curr_cell.coordinate} was a #{play_status}"
-
       if curr_cell.ship != nil
         if curr_cell.ship.sunk?
           @player_ship_sunk += 1
