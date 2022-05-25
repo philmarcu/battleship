@@ -10,8 +10,10 @@ RSpec.describe Ship do
     @game = Game_Manager.new
     @comp_board = Board.new
     @player_board = Board.new
-    @cruiser = Ship.new("Cruiser", 3)
-    @submarine = Ship.new("Submarine", 2)
+    @comp_cruiser = Ship.new("Cruiser", 3)
+    @comp_submarine = Ship.new("Submarine", 2)
+    @play_cruiser = Ship.new("Cruiser", 3)
+    @play_submarine = Ship.new("Submarine", 2)
     @turn = Turn.new(@comp_board, @player_board)
   end
 
@@ -21,7 +23,7 @@ RSpec.describe Ship do
   end
 
   it 'starts game and initilizes comp board' do
-    expect(@comp_board.render).to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
+    expect(@comp_board.render(true)).to eq(" 1 2 3 4\nA . . . .\nB . . . .\nC . . . .\nD . . . .\n")
   end
 
 
